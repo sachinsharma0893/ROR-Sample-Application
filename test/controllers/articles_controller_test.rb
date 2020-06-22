@@ -3,6 +3,8 @@ require 'test_helper'
 class ArticlesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @article = articles(:one)
+    @admin_user = User.create(username:"admin", email:"admin@yopmail.com", password:"aa", admin: true)
+    sign_in_as(@admin_user)
   end
 
   test "should get index" do
@@ -26,6 +28,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
   test "should show article" do
     get article_url(@article)
     assert_response :success
+    
   end
 
   test "should get edit" do
